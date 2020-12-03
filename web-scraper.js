@@ -1,4 +1,5 @@
 const axios = require('axios');
+const $ = require('cheerio');
 
 /**
   360.cn
@@ -26,6 +27,8 @@ async function makeRequest(){
   try {
     const httpResponse = await axios.get(exampleURL);
     console.log(httpResponse.data);
+    console.log($('a', httpResponse.data).length);
+    console.log($('a', httpResponse.data));
   } catch (err) {
       console.err(`We are within the catch block as an error occurred`);
       console.error(err);
