@@ -1,37 +1,43 @@
 const axios = require('axios');
-const $ = require('cheerio');
+const cheerio = require('cheerio');
+const fs = require('fs');
 
 /**
-  360.cn
-  fc2.com
-  livejasmin.com
-  popads.net
-  qq.com
-  soundcloud.com
-  uol.com.br
-  cnzz.com
-  diply.com
-  jd.com
-  live.com
-  pixnet.net
-  sina.com.cn
-  sohu.com
-  tianya.cn
-  vk.com
+Web scraping is used to extract data from a website via its' URL - the data
+collected requires study of the HTML rendered by the site, particularly the
+CSS Selector path - as this is what is passed to cheerio when querying the HTML
+to identify elements of interest.
+
+This js script is responsible for scraping an IMDB title URL and extracting the character names
+played by the cast members and storing this information in a file.
 */
 
+let hyperlinkClass = "sc-link-dark.sc-type-light.playableTile__mainHeading.audibleTile__mainHeading.playableTile__heading.playableTile__audibleHeading.audibleTile__audibleHeading.sc-truncate.sc-font-light"
+let exampleUrl = 'https://www.imdb.com/title/tt0241527/?ref_=fn_al_tt_1';
 
+async function makeRequest(imdbMovieUrl){
+  let characters = [];
 
-async function makeRequest(){
-  let exampleURL = 'https://en.wikipedia.org/wiki/List_of_Presidents_of_the_United_States';//"https://www.livejasmin.com";
   try {
-    const httpResponse = await axios.get(exampleURL);
-    console.log(httpResponse.data);
-    console.log($('a', httpResponse.data).length);
-    console.log($('a', httpResponse.data));
+    const httpResponse = await axios.get(imdbMovieUrl);
+    let $ = cheerio.load(httpResponse.data);
+    let titleElem = $('#title-overview-widget > div.vital > div.title_block > div > div.titleBar > div.title_wrapper');
+    let movieTitle = titleElem
+      .find('h1')
+      .text();
+      fs.writeFileSync("./scraped-data.txt", movieTitle+"\n"+"---Cast---\n");
+    let urlElems = $('#titleCast > table > tbody > tr > td.character > a');//cheerio takes the CSS selector patha as an argument
+    let elemIndex = Object.keys(urlElems).filter(x => !isNaN(x));
+
+    for(let i=0; i<elemIndex.length; i++){
+      let characterName = $(urlElems[i]).text();
+      characters.push(characterName);
+    }
+
+    console.log(characters.join('\n'));
+    fs.appendFileSync("./scraped-data.txt", characters.join('\n'));
   } catch (err) {
-      console.err(`We are within the catch block as an error occurred`);
-      console.error(err);
+      console.error(`We are within the catch block as an error occurred`);
   }
 }
 
