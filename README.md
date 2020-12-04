@@ -3,9 +3,10 @@ A Node JS file used to scrap data from websites. The example programmed demonstr
 
 The following output will be written to file (scraped_data.txt):
 
+<code>
 Harry Potter and the Philosopher's Stone (2001)            
 --Cast--
-Albus Dumbledore
+  <li>Albus Dumbledore</li>
 Professor McGonagall
 Hagrid
 Baby Harry Potter
@@ -22,3 +23,4 @@ Voice of Griphook
 Griphook
 Mr. Ollivander
 He Who Must Not Be Named
+</code>
