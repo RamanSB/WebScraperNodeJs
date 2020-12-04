@@ -13,7 +13,8 @@ played by the cast members and storing this information in a file.
 */
 
 let hyperlinkClass = "sc-link-dark.sc-type-light.playableTile__mainHeading.audibleTile__mainHeading.playableTile__heading.playableTile__audibleHeading.audibleTile__audibleHeading.sc-truncate.sc-font-light"
-let exampleUrl = 'https://www.imdb.com/title/tt0241527/?ref_=fn_al_tt_1';
+let harryPotterExample = 'https://www.imdb.com/title/tt0241527/?ref_=fn_al_tt_1';
+let batmanUrl = "https://www.imdb.com/title/tt1877830/?ref_=nv_sr_srsg_0";
 
 async function makeRequest(imdbMovieUrl){
   let characters = [];
@@ -26,11 +27,11 @@ async function makeRequest(imdbMovieUrl){
       .find('h1')
       .text();
       fs.writeFileSync("./scraped-data.txt", movieTitle+"\n"+"---Cast---\n");
-    let urlElems = $('#titleCast > table > tbody > tr > td.character > a');//cheerio takes the CSS selector patha as an argument
+    let urlElems = $('#titleCast > table > tbody > tr > td.character');//cheerio takes the CSS selector patha as an argument
     let elemIndex = Object.keys(urlElems).filter(x => !isNaN(x));
 
     for(let i=0; i<elemIndex.length; i++){
-      let characterName = $(urlElems[i]).text();
+      let characterName = $(urlElems[i]).find('a').text();
       characters.push(characterName);
     }
 
@@ -42,5 +43,4 @@ async function makeRequest(imdbMovieUrl){
 }
 
 
-makeRequest();
-//sendGetRequest();
+makeRequest(batmanUrl);
