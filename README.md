@@ -1,13 +1,14 @@
 # WebScraperNodeJs
-A Node JS file used to scrap data from websites. The example programmed demonstrates how to scrap IMDB movie title sites for the movie name & the characters of the cast members within the movie. I.e. for a given URL: https://www.imdb.com/title/tt0241527/?ref_=fn_al_tt_1 (Harry Potter)...
-
-The following output will be written to file <code>(scraped_data.txt)</code>:
 
 <u>Libraries used</u>
 <ul>
   <li>Axios</li>
   <li><a href="https://cheerio.js.org/">Cheerio</a></li>
 </ul>
+
+A Node JS file used to scrap data from websites. The example programmed demonstrates how to scrap IMDB movie title sites for the movie name & the characters of the cast members within the movie. I.e. for a given URL: https://www.imdb.com/title/tt0241527/?ref_=fn_al_tt_1 (Harry Potter)...
+
+The following output will be written to file <code>(scraped_data.txt)</code>:
 
 
 Harry Potter and the Philosopher's Stone (2001)            
