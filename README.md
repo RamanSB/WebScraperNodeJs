@@ -3,7 +3,7 @@ A Node JS file used to scrap data from websites. The example programmed demonstr
 
 The following output will be written to file <code>(scraped_data.txt)</code>:
 
-<code>Libraries used</code>
+<u>Libraries used</u>
 <ul>
   <li>Axios</li>
   <li><a href="https://cheerio.js.org/">Cheerio</a></li>
